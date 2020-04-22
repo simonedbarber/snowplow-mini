@@ -31,6 +31,13 @@ enrich {
 
     sourceSink {
       enabled = nsq
+      aws {
+        accessKey = iam
+        secretKey = iam
+      }
+      gcp {
+        creds = "path-to-service-account-file"
+      }
       rawChannel = StreamEnrichChannel
       host = nsqd
       port = 4150
