@@ -29,13 +29,22 @@
     }
   ],
   "post-processors": [
-    {
-      "type": "googlecompute-export",
-      "paths": [
-        "gs://snowplow-mini/{{user `gcp_image_name`}}.tar.gz"
-      ],
-      "keep_input_artifact": true
-    }
+    [
+      {
+        "type": "googlecompute-export",
+        "only": ["googlecompute"],
+        "paths": [
+          "gs://snowplow-mini/{{user `gcp_image_name`}}.tar.gz"
+        ],
+        "keep_input_artifact": true
+      },
+      {
+        "type": "shell-local",
+        "inline": [
+          "gsutil acl ch -u AllUsers:R gs://snowplow-mini/{{user `gcp_image_name`}}.tar.gz"
+        ]
+      }
+    ]
   ],
   "provisioners": [
     {
