@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd $TRAVIS_BUILD_DIR
+cd $GITHUB_WORKSPACE
 
 ###### input validation ######
 if [ "$#" -ne 1 ]
