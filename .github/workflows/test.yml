@@ -1,0 +1,13 @@
+name: Test Mini
+
+on:
+  push:
+
+jobs:
+  test:
+    name: Publish artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2

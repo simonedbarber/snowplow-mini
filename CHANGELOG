@@ -1,10 +1,10 @@
-Version 0.11.0 (2020-10-23)
+Version 0.11.0 (2020-11-02)
 ---------------------------
+Remove Authorization header (#245)
+Update documentation on index page (#247)
 Bump Enrich to 1.4.1 (#243)
 Bump Stream Collector to 2.0.0 (#241)
 Disable default redirect path in collector configuration (#239)
-Remove Authentication header (#245)
-Update documentation on index page (#247)
 Add section about errors when building with Vagrant to README.md (#238)
 
 Version 0.10.1 (2020-09-07)
