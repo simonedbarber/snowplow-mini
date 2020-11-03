@@ -1,28 +1,51 @@
-name: Publish artifacts
+name: Test and Publish Mini
 
 on:
   push:
-    tags:
-      - */aws/large
-      - */aws/xlarge
-      - */aws/xxlarge
-      - */gcp/large
-      - */gcp/xlarge
-      - */gcp/xxlarge
 
 jobs:
-  publish:
-    name: Publish artifacts
+  test:
+    name: Test and Publish artifacts
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Setup golang 1.12
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.12'
+      
+      - name: Check golang version
+        run: go version
+      
+      - name: Install deps
+        run: |
+        sudo apt-get update -qq
+        sudo apt-get install -y language-pack-en python-pip python-paramiko=1.16.0-1ubuntu0.2 libffi-dev libssl-dev python-dev
+        sudo pip install --upgrade pip
+        sudo pip install markupsafe==1.1.1 setuptools==40.8.0 ansible==2.8.1
+      
+      - name: Provision a local Mini
+        run: ansible-playbook -i $GITHUB_WORKSPACE/provisioning/inventory $GITHUB_WORKSPACE/provisioning/local_setup.yml --connection=local --become
+      
+      - name: Integration test
+        run: $GITHUB_WORKSPACE/integration/integration_test.sh
 
-    - name: Extract tag from ref
-      id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF##*/}
-    
-    - name: Publish artifact based on cloud and size
-      run: ./deploy.sh ${{ steps.get_version.outputs.VERSION }}
-
+      - name: Setup gcloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+          export_default_credentials: true
+      - run: gcloud info
+  
+      - name: Extract tag from ref
+        if: startsWith(github.ref, 'refs/tags/')
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF##*/}
+      
+      - name: Publish artifact based on cloud and size
+        if: startsWith(github.ref, 'refs/tags/')
+        run: ./deploy.sh ${{ steps.get_version.outputs.VERSION }}
