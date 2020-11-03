@@ -22,10 +22,10 @@ jobs:
       
       - name: Install deps
         run: |
-        sudo apt-get update -qq
-        sudo apt-get install -y language-pack-en python-pip python-paramiko=1.16.0-1ubuntu0.2 libffi-dev libssl-dev python-dev
-        sudo pip install --upgrade pip
-        sudo pip install markupsafe==1.1.1 setuptools==40.8.0 ansible==2.8.1
+          sudo apt-get update -qq
+          sudo apt-get install -y language-pack-en python-pip python-paramiko=1.16.0-1ubuntu0.2 libffi-dev libssl-dev python-dev
+          sudo pip install --upgrade pip
+          sudo pip install markupsafe==1.1.1 setuptools==40.8.0 ansible==2.8.1
       
       - name: Provision a local Mini
         run: ansible-playbook -i $GITHUB_WORKSPACE/provisioning/inventory $GITHUB_WORKSPACE/provisioning/local_setup.yml --connection=local --become
