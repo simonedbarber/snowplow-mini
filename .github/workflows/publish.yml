@@ -52,4 +52,4 @@ jobs:
           AWS_DEPLOY_ACCESS_KEY: ${{ secrets.AWS_DEPLOY_ACCESS_KEY }}
           AWS_DEPLOY_SECRET_KEY: ${{ secrets.AWS_DEPLOY_SECRET_KEY }}
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
-        run: ./deploy.sh ${{ steps.get_version.outputs.VERSION }}
+        run: $GITHUB_WORKSPACE/.github/workflows/deploy.sh ${{ steps.get_version.outputs.VERSION }}
