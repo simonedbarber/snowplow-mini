@@ -51,5 +51,5 @@ jobs:
         env:
           AWS_DEPLOY_ACCESS_KEY: ${{ secrets.AWS_DEPLOY_ACCESS_KEY }}
           AWS_DEPLOY_SECRET_KEY: ${{ secrets.AWS_DEPLOY_SECRET_KEY }}
-          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+          GOOGLE_APPLICATION_CREDENTIALS_JSON_BASE64: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON_BASE64 }}
         run: $GITHUB_WORKSPACE/.github/workflows/deploy.sh ${{ steps.get_tag.outputs.VERSION }}

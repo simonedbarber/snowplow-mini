@@ -86,7 +86,7 @@ then
 	packer build -only=amazon-ebs Packerfile.json
 elif [ "$SP_MINI_PLATFORM" == "gcp" ]
 then
-	echo $GOOGLE_APPLICATION_CREDENTIALS_JSON | base64 --decode > $GITHUB_WORKSPACE/BIN
+	echo $GOOGLE_APPLICATION_CREDENTIALS_JSON_BASE64 | base64 --decode > $GITHUB_WORKSPACE/BIN
 	export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/BIN 
 	packer build -only=googlecompute Packerfile.json
 else
