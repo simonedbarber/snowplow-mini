@@ -27,6 +27,7 @@ export class Overview extends React.Component<{}, {}> {
     var kibana: string = location.protocol + '//' + window.location.host + '/kibana/';
     var elasticsearch: string = location.protocol + '//' + window.location.host + '/elasticsearch';
     var cAdvisor: string = location.protocol + '//' + window.location.host + '/metrics';
+    var logs: string = location.protocol + '//' + window.location.host + '/logs/logs';
 
     return (
       <div className="tab-content">
@@ -49,6 +50,7 @@ export class Overview extends React.Component<{}, {}> {
           <li>Link to <a href={'https://github.com/snowplow/snowplow-mini'}>Snowplow Mini</a> repository</li>
           <li>Collector endpoint <a href={collector}>{collector}</a></li>
           <li>Metrics endpoint <a href={cAdvisor}>{cAdvisor}</a></li>
+          <li>Logs endpoint <a href={logs}>{logs}</a></li>
         </ul>
         <h3>The software stack installed: </h3>
         <ul>
@@ -62,6 +64,7 @@ export class Overview extends React.Component<{}, {}> {
           <li>Elasticsearch-OSS 7.9.3</li>
           <li>Kibana-OSS 7.9.3</li>
           <li>cAdvisor 0.36.0</li>
+          <li>logspout 3.2.12</li>
         </ul>
         <h3>Stack topology: </h3>
         <div>
