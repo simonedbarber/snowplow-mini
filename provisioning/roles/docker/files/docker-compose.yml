@@ -192,3 +192,12 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
+
+  logspout:
+    image: gliderlabs/logspout:v3.2.12
+    container_name: logspout
+    restart: always
+    ports:
+      - 8094:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

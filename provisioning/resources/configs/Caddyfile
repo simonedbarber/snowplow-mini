@@ -11,6 +11,7 @@
     /nsqadmin
     /control-plane
     /metrics
+    /logs
   }
   redir /home /home/
   redir /iglu-server /iglu-server/
@@ -18,6 +19,7 @@
   redir /nsqadmin /nsqadmin/
   redir /elasticsearch /elasticsearch/
   redir /metrics /metrics/
+  redir /logs /logs/
 
   proxy / localhost:8080 {
     header_upstream -Authorization
@@ -52,6 +54,10 @@
   }
 
   proxy /metrics localhost:8093
+
+  proxy /logs localhost:8094 {
+    without /logs
+  }
 }
 
 *:3000 {
