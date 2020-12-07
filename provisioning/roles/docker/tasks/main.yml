@@ -70,3 +70,10 @@
     curl -X POST localhost:4151/topic/create?topic=EnrichedEvents
     curl -X POST localhost:4151/topic/create?topic=BadEnrichedEvents
     curl -X POST localhost:4151/topic/create?topic=PiiEvents
+
+- name: Replace docker-compose.yml based on the platform
+  become: yes
+  shell: |
+    platform=`cat /home/ubuntu/snowplow/configs/compositions/.platform`
+    if [ "$platform" == "aws" ]; then cat {{configs_dir}}/compositions/docker-compose-aws.yml > {{main_dir}}/docker-compose.yml; fi
+    if [ "$platform" == "gcp" ]; then cat {{configs_dir}}/compositions/docker-compose-gcp.yml > {{main_dir}}/docker-compose.yml; fi
