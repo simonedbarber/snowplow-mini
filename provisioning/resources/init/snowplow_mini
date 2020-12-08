@@ -13,7 +13,7 @@ set -e
 
 YAMLFILE=/home/ubuntu/snowplow/docker-compose.yml
 OPTS="-f $YAMLFILE"
-UPOPTS="-d --no-recreate"
+UPOPTS="-d"
 
 up_cmd="cd /home/ubuntu/snowplow && sudo docker-compose up $UPOPTS"
 stop_cmd="cd /home/ubuntu/snowplow && sudo docker-compose stop"
